@@ -15,16 +15,17 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->post('auth/login',[
+$router->post('api/auth/login',[
     'uses'=>'AuthController@authenticate'
 ]);
 
 $router->group(
     ['middleware' => 'jwt.auth'], 
     function() use ($router) {
-        $router->get('users', function() {
-            $users = \App\User::all();
-            return response()->json($users);
-        });
+        $listingRoutes=\App\RouteApi::where('is_active',1);
+        // $router->get('api/users', function() {
+        //     $users = \App\User::all();
+        //     return response()->json($users);
+        // });
     }
 );

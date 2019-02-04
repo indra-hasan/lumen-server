@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterTableUserAddRoleId extends Migration
+class CreateTableRoleAssigment extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AlterTableUserAddRoleId extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
+        Schema::create('role_assigments', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('role_id')->unsigned();
+            $table->integer('api_id')->unsigned();
+            $table->timestamps();
         });
     }
 
@@ -26,9 +28,6 @@ class AlterTableUserAddRoleId extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            $table->dropColumn(['role_id']);
-        });
+        Schema::dropIfExists('role_assigments');
     }
 }

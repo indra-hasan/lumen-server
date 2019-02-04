@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableNews extends Migration
+class AlterTableRouteApi extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateTableNews extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->text('content');
-            $table->string('image_thumbnail')->nullable();
-            $table->timestamps();
+        Schema::table('route_apis', function (Blueprint $table) {
+            //
+            $table->integer('is_active')->unsigned()->default(0);
         });
     }
 
@@ -29,6 +26,9 @@ class CreateTableNews extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        Schema::table('route_apis', function (Blueprint $table) {
+            //
+            $table->dropColumn(['is_active']);
+        });
     }
 }
